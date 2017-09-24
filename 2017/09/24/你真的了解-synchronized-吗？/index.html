@@ -14,17 +14,18 @@
 <meta name="author" content="Loofer" />
 
 
-    
-    
 
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="枫暮草堂">
-<meta property="og:url" content="https://loofer.github.io/index.html">
+<meta name="description" content="线程安全概念当多个线程访问某一个类（对象或方法）时，这个对象始终都能表现出正确的行为，那么这个类（对象或方法）就是线程安全的。 synchronized：可以在任意对象及方法上加锁，而加锁的这段代码称为”互斥区”或”临界区” 方法锁1234567891011121314151617181920212223public class MyThread extends Thread&amp;#123;		pri">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你真的了解 synchronized 吗？">
+<meta property="og:url" content="https://loofer.github.io/2017/09/24/你真的了解-synchronized-吗？/index.html">
 <meta property="og:site_name" content="枫暮草堂">
+<meta property="og:description" content="线程安全概念当多个线程访问某一个类（对象或方法）时，这个对象始终都能表现出正确的行为，那么这个类（对象或方法）就是线程安全的。 synchronized：可以在任意对象及方法上加锁，而加锁的这段代码称为”互斥区”或”临界区” 方法锁1234567891011121314151617181920212223public class MyThread extends Thread&amp;#123;		pri">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-24T05:21:11.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="枫暮草堂">
+<meta name="twitter:title" content="你真的了解 synchronized 吗？">
+<meta name="twitter:description" content="线程安全概念当多个线程访问某一个类（对象或方法）时，这个对象始终都能表现出正确的行为，那么这个类（对象或方法）就是线程安全的。 synchronized：可以在任意对象及方法上加锁，而加锁的这段代码称为”互斥区”或”临界区” 方法锁1234567891011121314151617181920212223public class MyThread extends Thread&amp;#123;		pri">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,13 +53,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>枫暮草堂</title>
+<title>你真的了解 synchronized 吗？ | 枫暮草堂</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,8 +66,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -264,9 +263,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-你真的了解-synchronized-吗？" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-你真的了解-synchronized-吗？" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2017/09/24/你真的了解-synchronized-吗？/" class="article-date">
@@ -284,12 +281,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/24/你真的了解-synchronized-吗？/">你真的了解 synchronized 吗？</a>
+    <h1 class="article-title" itemprop="name">
+      你真的了解 synchronized 吗？
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -352,389 +356,119 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Spring-Boot常用配置（properties、yml）" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/" class="article-date">
-      <time datetime="2017-09-10T10:51:00.000Z" itemprop="datePublished">2017-09-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/Spring-Boot常用配置（properties、yml）/">Spring Boot常用配置（properties、yml）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="SPRING-CONFIG-ConfigFileApplicationListener"><a href="#SPRING-CONFIG-ConfigFileApplicationListener" class="headerlink" title="SPRING CONFIG (ConfigFileApplicationListener)"></a>SPRING CONFIG (ConfigFileApplicationListener)</h2><p><code>spring.config.name</code><br>配置文件名称，默认为application<br><code>spring.config.location</code><br>配置文件存放位置，默认为classpath目录下</p>
-<h2 id="mvc"><a href="#mvc" class="headerlink" title="mvc"></a>mvc</h2><p><code>spring.mvc.async.request-timeout</code><br>设定async请求的超时时间，以毫秒为单位，如果没有设置的话，以具体实现的超时时间为准，比如tomcat的servlet3的话是10秒.<br><code>spring.mvc.date-format</code><br>设定日期的格式，比如dd/MM/yyyy.<br><code>spring.mvc.favicon.enabled</code><br>是否支持favicon.ico，默认为: true<br><code>spring.mvc.ignore-default-model-on-redirect</code><br>在重定向时是否忽略默认model的内容，默认为true<br><code>spring.mvc.locale</code><br>指定使用的Locale.<br><code>spring.mvc.message-codes-resolver-format</code><br>指定message codes的格式化策略(PREFIX_ERROR_CODE,POSTFIX_ERROR_CODE).<br><code>spring.mvc.view.prefix</code><br>指定mvc视图的前缀.<br><code>spring.mvc.view.suffix</code><br>指定mvc视图的后缀.</p>
-<h2 id="messages"><a href="#messages" class="headerlink" title="messages"></a>messages</h2><p><code>spring.messages.basename</code><br>指定message的basename，多个以逗号分隔，如果不加包名的话，默认从classpath路径开始，默认: messages<br><code>spring.messages.cache-seconds</code><br>设定加载的资源文件缓存失效时间，-1的话为永不过期，默认为-1<br><code>spring.messages.encoding</code><br>设定Message bundles的编码，默认: UTF-8<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/#more">阅读全文 >></a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/09/24/你真的了解-synchronized-吗？/">你真的了解 synchronized 吗？</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Loofer</a></p>
+        <p><span>发布时间:</span>2017-09-24, 13:20:43</p>
+        <p><span>最后更新:</span>2017-09-24, 13:21:11</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/09/24/你真的了解-synchronized-吗？/" title="你真的了解 synchronized 吗？">https://loofer.github.io/2017/09/24/你真的了解-synchronized-吗？/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2017/09/24/你真的了解-synchronized-吗？/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hexo-常用命令收集整理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/09/10/Hexo-常用命令收集整理/" class="article-date">
-      <time datetime="2017-09-10T09:41:40.000Z" itemprop="datePublished">2017-09-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/Hexo-常用命令收集整理/">Hexo 常用命令收集整理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm install hexo -g #安装  </div><div class="line">npm update hexo -g #升级  </div><div class="line">hexo init #初始化</div></pre></td></tr></table></figure>
-<h2 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章</div><div class="line">hexo p == hexo publish</div><div class="line">hexo g == hexo generate#生成</div><div class="line">hexo s == hexo server #启动服务预览</div><div class="line">hexo d == hexo deploy#部署</div></pre></td></tr></table></figure>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/09/10/Hexo-常用命令收集整理/#more">阅读全文 >></a>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
-  
-</article>
 
 
 
-
-
-
-
-
-
-  
-    <article id="post-中文技术文档的写作规范" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/27/中文技术文档的写作规范/" class="article-date">
-      <time datetime="2017-07-27T14:17:08.776Z" itemprop="datePublished">2017-07-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>title: 中文技术文档的写作规范<br>date: 2017-07-27 22:17:08<br>tags: 写作、规范</p>
-<h2 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h2><h3 id="层级"><a href="#层级" class="headerlink" title="层级"></a>层级</h3><p>标题分为四级。</p>
-<ul>
-<li>一级标题：文章的标题</li>
-<li>二级标题：文章主要部分的大标题</li>
-<li>三级标题：二级标题下面一级的小标题</li>
-<li>四级标题：三级标题下面某一方面的小标题</li>
-</ul>
-<h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ul>
-<li>一级标题下，不能直接出现三级标题。</li>
-<li>标题要避免孤立编号（即同级标题只有一个）。</li>
-<li>下级标题不重复上一级标题的内容。</li>
-<li>谨慎使用四级标题，尽量避免出现，保持层级的简单和防止出现过于复杂的章节。如果三级标题下有并列性的内容，建议只使用项目列表（Item list）。</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2017/07/27/中文技术文档的写作规范/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-源码解析之Android系统进程Zygote启动流程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/" class="article-date">
-      <time datetime="2017-07-27T13:49:45.000Z" itemprop="datePublished">2017-07-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/">源码解析之Android系统进程Zygote启动流程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
         
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/">
+                    Spring Boot常用配置（properties、yml）
+                </a>
+            </div>
+        
+    </nav>
 
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
-
-
-
-
-
-
-
-
-  
-    <article id="post-测试" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/22/测试/" class="article-date">
-      <time datetime="2017-07-22T03:43:45.000Z" itemprop="datePublished">2017-07-22</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/22/测试/">测试</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>这是一片测试文章，用来做什么，你懂的。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/21/hello-world/" class="article-date">
-      <time datetime="2017-07-21T13:12:24.338Z" itemprop="datePublished">2017-07-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全概念"><span class="toc-number">1.</span> <span class="toc-text">线程安全概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法锁"><span class="toc-number">1.1.</span> <span class="toc-text">方法锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象锁"><span class="toc-number">2.</span> <span class="toc-text">对象锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果："><span class="toc-number">2.0.1.</span> <span class="toc-text">输出结果：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象锁异步同步的问题"><span class="toc-number">2.1.</span> <span class="toc-text">对象锁异步同步的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脏读、原子性问题"><span class="toc-number">3.</span> <span class="toc-text">脏读、原子性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized的重入"><span class="toc-number">3.1.</span> <span class="toc-text">synchronized的重入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子1"><span class="toc-number">3.2.</span> <span class="toc-text">例子1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子2"><span class="toc-number">3.3.</span> <span class="toc-text">例子2</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果：-1"><span class="toc-number">3.3.1.</span> <span class="toc-text">输出结果：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#synchronized-异常"><span class="toc-number">3.4.</span> <span class="toc-text">synchronized 异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果"><span class="toc-number">3.4.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程细节问题"><span class="toc-number">4.</span> <span class="toc-text">线程细节问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#锁对象的改变的问题"><span class="toc-number">4.1.</span> <span class="toc-text">锁对象的改变的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果-1"><span class="toc-number">4.1.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁问题"><span class="toc-number">4.2.</span> <span class="toc-text">死锁问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果-2"><span class="toc-number">4.2.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同一对象属性的修改不会影响锁的情况"><span class="toc-number">4.3.</span> <span class="toc-text">同一对象属性的修改不会影响锁的情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果-3"><span class="toc-number">4.3.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用synchronized代码块减小锁的粒度，提高性能"><span class="toc-number">4.4.</span> <span class="toc-text">使用synchronized代码块减小锁的粒度，提高性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果-4"><span class="toc-number">4.4.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串加锁"><span class="toc-number">4.5.</span> <span class="toc-text">字符串加锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#输出结果-5"><span class="toc-number">4.5.1.</span> <span class="toc-text">输出结果</span></a></li></ol></li></ol></li></ol>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/21/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
 
-      
-      
-      <div class="clearfix"></div>
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"你真的了解 synchronized 吗？　| 枫暮草堂　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/" title="下一篇: Spring Boot常用配置（properties、yml）">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-    
-  </div>
-  
-</article>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/你真的了解-synchronized-吗？/">你真的了解 synchronized 吗？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/10/Spring-Boot常用配置（properties、yml）/">Spring Boot常用配置（properties、yml）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/10/Hexo-常用命令收集整理/">Hexo 常用命令收集整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/27/中文技术文档的写作规范/">中文技术文档的写作规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/">源码解析之Android系统进程Zygote启动流程</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/22/测试/">测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/hello-world/">Hello World</a></li></ul>
 
 
 
 
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
