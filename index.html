@@ -295,95 +295,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<h2 id="类加载器原理"><a href="#类加载器原理" class="headerlink" title="类加载器原理"></a>类加载器原理</h2><h3 id="类加载器作用"><a href="#类加载器作用" class="headerlink" title="类加载器作用"></a>类加载器作用</h3><p>将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口<br><img src="https://upload-images.jianshu.io/upload_images/2937711-e809b1d0a5da9f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类加载概述过程"></p>
-<h3 id="类缓存"><a href="#类缓存" class="headerlink" title="类缓存"></a>类缓存</h3><p>标准的Java SE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，他将维持加载（缓存）一段时间，不过，JVM垃圾收集器可以回收这些Class对象。</p>
-<h2 id="类加载器的层次结构（树状结构）"><a href="#类加载器的层次结构（树状结构）" class="headerlink" title="类加载器的层次结构（树状结构）"></a>类加载器的层次结构（树状结构）</h2><h3 id="引导-启动-类加载器（Bootstrap-Class-Loader）"><a href="#引导-启动-类加载器（Bootstrap-Class-Loader）" class="headerlink" title="引导(启动)类加载器（Bootstrap Class Loader）"></a>引导(启动)类加载器（Bootstrap Class Loader）</h3><p>它用来加载Java的核心库(<code>JAVA_HOME/jre/lib/rt.jar</code> 或 <code>sun.boot.class.path</code> 路径下的内容），是用原生代码来实现的（C++）,并不继承自<code>java.lang.ClassLoader</code><br><img src="https://upload-images.jianshu.io/upload_images/2937711-5833c985914b7bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="rt.jar"></p>
-<p>加载扩展类和应用程序类加载器，并指定他们的父类加载器。</p>
-<h3 id="扩展类加载器（Extensions-Class-Loader）"><a href="#扩展类加载器（Extensions-Class-Loader）" class="headerlink" title="扩展类加载器（Extensions Class Loader）"></a>扩展类加载器（Extensions Class Loader）</h3><p>用来加载Java的扩展库(<code>JAVA_HOME/jre/lib/ext/*.jar</code>或  <code>java.ext.dirs</code> 路径下的内容) .java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</p>
-<p>由 <code>sun.misc.Launcher$ExtClassLoader</code> 实现<br><img src="https://upload-images.jianshu.io/upload_images/2937711-30245d9b5f7d7ed4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ext"><br><img src="https://upload-images.jianshu.io/upload_images/2937711-1da1d2fda34b111d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="继承结构"></p>
-<h3 id="应用程序类加载器（Application-Class-Loader）"><a href="#应用程序类加载器（Application-Class-Loader）" class="headerlink" title="应用程序类加载器（Application Class Loader）"></a>应用程序类加载器（Application Class Loader）</h3><p>它根据 Java 应用的类路径（ClassPath, java.class.path）来加载。<br>一般来说，Java应用的类都是由它来完成加载的。<br>由 <code>sun.misc.Launcher$AppClassLoader</code> 实现</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2937711-dc7410e34977db06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="继承结构"></p>
-<h3 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><p>开发人员可以通过继承 <code>java.lang.ClassLoader</code> 类的方式实现自己的类加载器，以满足一些特殊的要求。</p>
-<p><strong>注意</strong>：除了启动类加载器是由 C++ 编写外，其他都是 Java 编写，且都继承<code>java.lang.ClassLoader</code><br><img src="https://upload-images.jianshu.io/upload_images/2937711-a0cfabf31ece41c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类加载器结构图"></p>
-<h2 id="代码测试"><a href="#代码测试" class="headerlink" title="代码测试"></a>代码测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class ClassLoaderTest &#123;</div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(ClassLoader.getSystemClassLoader());</div><div class="line">        System.out.println(ClassLoader.getSystemClassLoader().getParent());</div><div class="line">        System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sun.misc.Launcher$AppClassLoader@73d16e93</div><div class="line">sun.misc.Launcher$ExtClassLoader@15db9742</div><div class="line">null</div></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>$ 表示内部类。内部类是个编译时的概念，编译成功后会生成两个类 <code>OuterClass.class</code> 和<code>OuterClass$InnerClass.class</code></li>
-<li>由于启动类加载器无法被 Java 程序直接引用，因此 JVM 默认直接使用 null 代表启动类加载器。</li>
-</ul>
-</blockquote>
-<h2 id="java-lang-ClassLoader-类介绍"><a href="#java-lang-ClassLoader-类介绍" class="headerlink" title="java.lang.ClassLoader 类介绍"></a>java.lang.ClassLoader 类介绍</h2><h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p><code>java.lang.ClassLoader</code> 类的基本职责就是根据一个指定的类的名称，找到或者生成其对应的字节代码，然后从这些字节代码中定义出一个 Java 类，即<code>java.lang.Class</code> 类的一个实例。除此之外，<code>ClassLoader</code> 还负责加载 Java 应用所需的资源，如图像文件和配置文件等。不过本文只讨论其加载类的功能。</p>
-<h3 id="相关方法："><a href="#相关方法：" class="headerlink" title="相关方法："></a>相关方法：</h3><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>getParent()</td>
-<td>返回该类加载器的父类加载器。</td>
-</tr>
-<tr>
-<td>loadClass(String name)</td>
-<td>加载名称为 name 的类，返回的结果是 java.lang.Class 类的实例。</td>
-</tr>
-<tr>
-<td>findClass(String name)</td>
-<td>查找名称为 name 的类，返回的结果是 java.lang.Class 类的实例。</td>
-</tr>
-<tr>
-<td>findLoadedClass(String name)</td>
-<td>查找名称为 name 的已经被加载过的类，返回的结果是 java.lang.Class 类的实例。</td>
-</tr>
-<tr>
-<td>defineClass(String name, byte[] b, int off, int len)</td>
-<td>把字节数组 b 中的内容转换成 Java 类，返回的结果是 java.lang.Class 类的实例。这个方法被声明为final 的。</td>
-</tr>
-<tr>
-<td>resolveClass(Class&lt;?&gt; c)</td>
-<td>链接指定的 Java 类。</td>
-</tr>
-</tbody>
-</table>
-<h2 id="类加载器的代理模式"><a href="#类加载器的代理模式" class="headerlink" title="类加载器的代理模式"></a>类加载器的代理模式</h2><h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p>交给其他加载器来加载指定类。</p>
-<h3 id="双亲委托机制"><a href="#双亲委托机制" class="headerlink" title="双亲委托机制"></a>双亲委托机制</h3><ul>
-<li><p>就是某个特定的类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归 (本质上就是loadClass函数的递归调用)。因此，所有的加载请求最终都应该传送到顶层的启动类加载器中。如果父类加载器可以完成这个类加载请求，就成功返回；只有当父类加载器无法完成此加载请求时，子加载器才会尝试自己去加载。</p>
-</li>
-<li><p>双亲委托机制是为了保证 Java 核心库的类型安全。这种机制就保证不会出现用户自己定义的 java.lang.Object 类的情况。</p>
-</li>
-</ul>
-<p>双亲委托机制除了用于加载类，也是安全的最基本屏障。</p>
-<ul>
-<li>双亲委托机制是代理模式的一种<blockquote>
-<ul>
-<li>并不是所有的类加载器都是双亲委托机制</li>
-<li>tomcat 服务器类加载器也使用代理模式，所不同的是它是首先尝试去加载某个类，如果找不到再代理给父类。这与一般类加载器的顺序是相反的。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h4 id="双亲委派机制代码测试"><a href="#双亲委派机制代码测试" class="headerlink" title="双亲委派机制代码测试"></a>双亲委派机制代码测试</h4><ul>
-<li>测试一<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package com.classloader.test;</div><div class="line"></div><div class="line">public class TestBean &#123;</div><div class="line"></div><div class="line">    public TestBean() &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">package com.classloader.test;</div><div class="line"></div><div class="line">public class ClassLoaderTest &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        try &#123;</div><div class="line">            //查看当前系统类路径中包含的路径条目</div><div class="line">            System.out.println(System.getProperty(&quot;java.class.path&quot;));</div><div class="line">            //调用加载当前类的类加载器（这里即为系统类加载器）加载TestBean</div><div class="line">            Class typeLoaded = Class.forName(&quot;com.classloader.test.TestBean&quot;);</div><div class="line">            //查看被加载的TestBean类型是被那个类加载器加载的</div><div class="line">            System.out.println(typeLoaded.getClassLoader());</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\charsets.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\deploy.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\access-bridge-64.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\cldrdata.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\dnsns.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\jaccess.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\jfxrt.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\localedata.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\nashorn.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\sunec.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\sunjce_provider.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\sunmscapi.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\sunpkcs11.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\ext\zipfs.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\javaws.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\jce.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\jfr.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\jfxswt.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\jsse.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\management-agent.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\plugin.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\resources.jar;</div><div class="line">d:\Develop\Java\jdk8\jdk1.8.0_92\jre\lib\rt.jar;</div><div class="line">F:\workspace\idea\ClassLoader\out\production\ClassLoader;</div><div class="line">D:\Develop\IntelliJ IDEA\lib\idea_rt.jar</div><div class="line">sun.misc.Launcher$AppClassLoader@75b84c92</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>为了增加可读性，笔者对输出做了调整</p>
-</blockquote>
-<ul>
-<li>测试二<br>将当前工程输出目录下的 <code>TestBean.class</code>打包进 <code>test.jar</code> 剪贴到 <code>JAVA_HOME/jre/lib/ext</code> 目录下，再运行测试一测试代码<br>输出<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">...省略部分输出</div><div class="line"> sun.misc.Launcher$ExtClassLoader@53ab9242</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>系统类加载器在接到加载 <code>com.classloader.test.TestBean</code> 类型的请求时，首先将请求委派给父类加载器（标准扩展类加载器），标准扩展类加载器抢先完成了加载请求。</p>
-</blockquote>
-<p>相关参考<br><a href="https://item.jd.com/11252778.html" target="_blank" rel="external">深入理解 Java 虚拟机</a><br><a href="https://andone1cc.github.io/2016/11/22/java%E5%9F%BA%E7%A1%80/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" target="_blank" rel="external">深入理解类加载器</a></p>
-
+              <h2 id="类加载器原理"><a href="#类加载器原理" class="headerlink" title="类加载器原理"></a>类加载器原理</h2><h3 id="类加载器作用"><a href="#类加载器作用" class="headerlink" title="类加载器作用"></a>类加载器作用</h3><p>将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口<br>
+          
       
     </div>
     
@@ -392,6 +305,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2018/04/21/深入-JVM-类加载器之类加载器层次结构/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

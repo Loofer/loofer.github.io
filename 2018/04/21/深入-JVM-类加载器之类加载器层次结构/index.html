@@ -15,12 +15,12 @@
 
 
 
-<meta name="description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口 类缓存标准的Java SE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，他将维持加载（缓存）一段时间，不过，JVM垃圾收集器可以回收这些Class对象。 类加载器的层次结构（树状结构）">
+<meta name="description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入 JVM 类加载器之类加载器层次结构">
 <meta property="og:url" content="https://loofer.github.io/2018/04/21/深入-JVM-类加载器之类加载器层次结构/index.html">
 <meta property="og:site_name" content="枫暮草堂">
-<meta property="og:description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口 类缓存标准的Java SE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，他将维持加载（缓存）一段时间，不过，JVM垃圾收集器可以回收这些Class对象。 类加载器的层次结构（树状结构）">
+<meta property="og:description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2937711-e809b1d0a5da9f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2937711-5833c985914b7bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2937711-1da1d2fda34b111d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2937711-dc7410e34977db06.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2937711-a0cfabf31ece41c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-04-21T14:19:03.459Z">
+<meta property="og:updated_time" content="2018-04-21T14:25:03.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入 JVM 类加载器之类加载器层次结构">
-<meta name="twitter:description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口 类缓存标准的Java SE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，他将维持加载（缓存）一段时间，不过，JVM垃圾收集器可以回收这些Class对象。 类加载器的层次结构（树状结构）">
+<meta name="twitter:description" content="类加载器原理类加载器作用将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2937711-e809b1d0a5da9f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -306,8 +306,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <a id="more"></a>
-<h2 id="类加载器原理"><a href="#类加载器原理" class="headerlink" title="类加载器原理"></a>类加载器原理</h2><h3 id="类加载器作用"><a href="#类加载器作用" class="headerlink" title="类加载器作用"></a>类加载器作用</h3><p>将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口<br><img src="https://upload-images.jianshu.io/upload_images/2937711-e809b1d0a5da9f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类加载概述过程"></p>
+        <h2 id="类加载器原理"><a href="#类加载器原理" class="headerlink" title="类加载器原理"></a>类加载器原理</h2><h3 id="类加载器作用"><a href="#类加载器作用" class="headerlink" title="类加载器作用"></a>类加载器作用</h3><p>将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区中的运行时数据结构，在堆中生成一个代表这个类的java.lang.Class对象，作为方法区类数据的访问入口<br><a id="more"></a><br><img src="https://upload-images.jianshu.io/upload_images/2937711-e809b1d0a5da9f72.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="类加载概述过程"></p>
 <h3 id="类缓存"><a href="#类缓存" class="headerlink" title="类缓存"></a>类缓存</h3><p>标准的Java SE类加载器可以按要求查找类，但一旦某个类被加载到类加载器中，他将维持加载（缓存）一段时间，不过，JVM垃圾收集器可以回收这些Class对象。</p>
 <h2 id="类加载器的层次结构（树状结构）"><a href="#类加载器的层次结构（树状结构）" class="headerlink" title="类加载器的层次结构（树状结构）"></a>类加载器的层次结构（树状结构）</h2><h3 id="引导-启动-类加载器（Bootstrap-Class-Loader）"><a href="#引导-启动-类加载器（Bootstrap-Class-Loader）" class="headerlink" title="引导(启动)类加载器（Bootstrap Class Loader）"></a>引导(启动)类加载器（Bootstrap Class Loader）</h3><p>它用来加载Java的核心库(<code>JAVA_HOME/jre/lib/rt.jar</code> 或 <code>sun.boot.class.path</code> 路径下的内容），是用原生代码来实现的（C++）,并不继承自<code>java.lang.ClassLoader</code><br><img src="https://upload-images.jianshu.io/upload_images/2937711-5833c985914b7bf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="rt.jar"></p>
 <p>加载扩展类和应用程序类加载器，并指定他们的父类加载器。</p>
@@ -405,7 +404,7 @@
         <p><span>本文标题:</span><a href="/2018/04/21/深入-JVM-类加载器之类加载器层次结构/">深入 JVM 类加载器之类加载器层次结构</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Loofer</a></p>
         <p><span>发布时间:</span>2018-04-21, 22:16:07</p>
-        <p><span>最后更新:</span>2018-04-21, 22:19:03</p>
+        <p><span>最后更新:</span>2018-04-21, 22:25:03</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/04/21/深入-JVM-类加载器之类加载器层次结构/" title="深入 JVM 类加载器之类加载器层次结构">https://loofer.github.io/2018/04/21/深入-JVM-类加载器之类加载器层次结构/</a>
             <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2018/04/21/深入-JVM-类加载器之类加载器层次结构/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
