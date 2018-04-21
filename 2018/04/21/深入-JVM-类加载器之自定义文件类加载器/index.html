@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="hexo123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化 简写12345   hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章hexo p == hexo publishhexo g == hexo generate#生成hexo s == hex">
+<meta name="description" content="自定义类加载器流程 继承 java.lang.ClassLoader 首先检查请求的类型是否已经被这个类装载器装载到命名空间中了，如果已经装载，直接返回。 委派类加载请求给父类加载器，如果父类加载器能够完成，则返回父类加载器加载的Class实例。 调用本类加载器的 findClass（…）方法，试图获取对应的字节码，如果获取的到，则调用 defineClass（…）导入类型到方法区；如果获取不到对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 常用命令收集整理">
-<meta property="og:url" content="https://loofer.github.io/2017/09/10/Hexo-常用命令收集整理/index.html">
+<meta property="og:title" content="深入 JVM 类加载器之自定义文件类加载器">
+<meta property="og:url" content="https://loofer.github.io/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/index.html">
 <meta property="og:site_name" content="枫暮草堂">
-<meta property="og:description" content="hexo123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化 简写12345   hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章hexo p == hexo publishhexo g == hexo generate#生成hexo s == hex">
+<meta property="og:description" content="自定义类加载器流程 继承 java.lang.ClassLoader 首先检查请求的类型是否已经被这个类装载器装载到命名空间中了，如果已经装载，直接返回。 委派类加载请求给父类加载器，如果父类加载器能够完成，则返回父类加载器加载的Class实例。 调用本类加载器的 findClass（…）方法，试图获取对应的字节码，如果获取的到，则调用 defineClass（…）导入类型到方法区；如果获取不到对">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-10T10:13:45.692Z">
+<meta property="og:updated_time" content="2018-04-21T15:13:29.568Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo 常用命令收集整理">
-<meta name="twitter:description" content="hexo123npm install hexo -g #安装  npm update hexo -g #升级  hexo init #初始化 简写12345   hexo n &amp;quot;我的博客&amp;quot; == hexo new &amp;quot;我的博客&amp;quot; #新建文章hexo p == hexo publishhexo g == hexo generate#生成hexo s == hex">
+<meta name="twitter:title" content="深入 JVM 类加载器之自定义文件类加载器">
+<meta name="twitter:description" content="自定义类加载器流程 继承 java.lang.ClassLoader 首先检查请求的类型是否已经被这个类装载器装载到命名空间中了，如果已经装载，直接返回。 委派类加载请求给父类加载器，如果父类加载器能够完成，则返回父类加载器加载的Class实例。 调用本类加载器的 findClass（…）方法，试图获取对应的字节码，如果获取的到，则调用 defineClass（…）导入类型到方法区；如果获取不到对">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Hexo 常用命令收集整理 | 枫暮草堂</title>
+<title>深入 JVM 类加载器之自定义文件类加载器 | 枫暮草堂</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -263,11 +263,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Hexo-常用命令收集整理" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-深入-JVM-类加载器之自定义文件类加载器" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/09/10/Hexo-常用命令收集整理/" class="article-date">
-      <time datetime="2017-09-10T09:41:40.000Z" itemprop="datePublished">2017-09-10</time>
+      <a href="/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/" class="article-date">
+      <time datetime="2018-04-21T15:12:51.000Z" itemprop="datePublished">2018-04-21</time>
 </a>
 
 
@@ -282,7 +282,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hexo 常用命令收集整理
+      深入 JVM 类加载器之自定义文件类加载器
     </h1>
   
 
@@ -299,96 +299,34 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm install hexo -g #安装  </div><div class="line">npm update hexo -g #升级  </div><div class="line">hexo init #初始化</div></pre></td></tr></table></figure>
-<h2 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章</div><div class="line">hexo p == hexo publish</div><div class="line">hexo g == hexo generate#生成</div><div class="line">hexo s == hexo server #启动服务预览</div><div class="line">hexo d == hexo deploy#部署</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">   hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。</div><div class="line">hexo server -s #静态模式</div><div class="line">hexo server -p 5000 #更改端口</div><div class="line">hexo server -i 192.168.1.1 #自定义 IP</div><div class="line"></div><div class="line">   hexo clean #清除缓存 网页正常情况下可以忽略此条命令</div><div class="line">hexo g #生成静态网页</div><div class="line">hexo d #开始部署</div></pre></td></tr></table></figure>
-<h2 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   hexo generate #使用 Hexo 生成静态文件快速而且简单</div><div class="line">hexo generate --watch #监视文件变动</div></pre></td></tr></table></figure>
-<h2 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">   两个命令的作用是相同的</div><div class="line">   hexo generate --deploy</div><div class="line">   hexo deploy --generate</div><div class="line">   </div><div class="line">   hexo deploy -g</div><div class="line">hexo server -g</div></pre></td></tr></table></figure>
-<h2 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo publish [layout] &lt;title&gt;</div></pre></td></tr></table></figure>
-<h2 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">   hexo new &quot;postName&quot; #新建文章</div><div class="line">hexo new page &quot;pageName&quot; #新建页面</div><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</div><div class="line">hexo deploy #将.deploy目录部署到GitHub</div><div class="line"></div><div class="line">hexo new [layout] &lt;title&gt;</div><div class="line">hexo new photo &quot;My Gallery&quot;</div><div class="line">hexo new &quot;Hello World&quot; --lang tw</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th style="text-align:right">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>layout</td>
-<td style="text-align:right">布局</td>
-</tr>
-<tr>
-<td>title</td>
-<td style="text-align:right">标题</td>
-</tr>
-<tr>
-<td>date</td>
-<td style="text-align:right">文件建立日期</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">title: 使用Hexo搭建个人博客</div><div class="line">layout: post</div><div class="line">date: 2017-09-10 19:07:43</div><div class="line">comments: true</div><div class="line">categories: Blog</div><div class="line">tags: [Hexo]</div><div class="line">keywords: Hexo, Blog</div><div class="line">description: 给Hexo点赞。</div></pre></td></tr></table></figure>
-<h2 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h2><table>
-<thead>
-<tr>
-<th>变量</th>
-<th style="text-align:right">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>layout</td>
-<td style="text-align:right">布局</td>
-</tr>
-<tr>
-<td>title</td>
-<td style="text-align:right">标题</td>
-</tr>
-<tr>
-<td>date</td>
-<td style="text-align:right">文件建立日期</td>
-</tr>
-</tbody>
-</table>
-<h2 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">以上是文章摘要 &lt;!--more--&gt; 以下是余下全文</div></pre></td></tr></table></figure>
-<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo new page &lt;title&gt;</div><div class="line">hexo new post &lt;title&gt;</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th style="text-align:right">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:title</td>
-<td style="text-align:right">标题</td>
-</tr>
-<tr>
-<td>:year</td>
-<td style="text-align:right">建立的年份（4 位数）</td>
-</tr>
-<tr>
-<td>:month</td>
-<td style="text-align:right">建立的月份（2 位数）</td>
-</tr>
-<tr>
-<td>:i_month</td>
-<td style="text-align:right">建立的月份（去掉开头的零）</td>
-</tr>
-<tr>
-<td>:day</td>
-<td style="text-align:right">建立的日期（2 位数）</td>
-</tr>
-<tr>
-<td>:i_day</td>
-<td style="text-align:right">建立的日期（去掉开头的零）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo n #写文章</div><div class="line">hexo g #生成</div><div class="line">hexo d #部署 #可与hexo g合并为 hexo d -g</div></pre></td></tr></table></figure>
+        <h2 id="自定义类加载器流程"><a href="#自定义类加载器流程" class="headerlink" title="自定义类加载器流程"></a>自定义类加载器流程</h2><ul>
+<li>继承 <code>java.lang.ClassLoader</code></li>
+<li>首先检查请求的类型是否已经被这个类装载器装载到命名空间中了，如果已经装载，直接返回。</li>
+<li>委派类加载请求给父类加载器，如果父类加载器能够完成，则返回父类加载器加载的Class实例。</li>
+<li>调用本类加载器的 <code>findClass（…）</code>方法，试图获取对应的字节码，如果获取的到，则调用 <code>defineClass（…）</code>导入类型到方法区；如果获取不到对应的字节码或者其他原因失败，返回异常给 <code>loadClass（…）</code>，  <code>loadClass（…）</code> 转抛异常，终止加载过程。<a id="more"></a>
+<blockquote>
+<p><strong>注意：</strong>被两个类加载器加载的同一个类，JVM不认为是相同的类</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><ul>
+<li><p>编写<code>FileSystemClassLoader.java</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line">package com.classloader.test;</div><div class="line"></div><div class="line">import java.io.ByteArrayOutputStream;</div><div class="line">import java.io.File;</div><div class="line">import java.io.FileInputStream;</div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line"></div><div class="line">public class FileSystemClassLoader extends ClassLoader &#123;</div><div class="line"></div><div class="line">    private String rootDir;</div><div class="line"></div><div class="line">    public FileSystemClassLoader(String rootDir) &#123;</div><div class="line">        this.rootDir = rootDir;</div><div class="line">    &#125;</div><div class="line">    @Override</div><div class="line">    protected Class&lt;?&gt; findClass(String name) throws ClassNotFoundException &#123;</div><div class="line"></div><div class="line">        Class&lt;?&gt; c = findLoadedClass(name);</div><div class="line">        //应该先查询有没有加载过这个类。如果已经加载，则直接返回加载好的类。如果没有，则加载心得类。</div><div class="line">        if (c != null) &#123;</div><div class="line">            return c;</div><div class="line">        &#125;else &#123;</div><div class="line">            ClassLoader parent = this.getParent();</div><div class="line">            try &#123;</div><div class="line">                c = parent.loadClass(name);</div><div class="line">            &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">            if (c != null) &#123;</div><div class="line">                return c;</div><div class="line">            &#125;else &#123;</div><div class="line"></div><div class="line">                byte[] data = getClassData(name);</div><div class="line">                if (data == null) &#123;</div><div class="line">                    throw new ClassNotFoundException();</div><div class="line">                &#125; else &#123;</div><div class="line">                    return defineClass(name, data, 0, data.length);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private byte[] getClassData(String name) &#123;</div><div class="line">        //包名转成文件路径</div><div class="line">        String path = pathForClassName(name);</div><div class="line">        FileInputStream fis = null;</div><div class="line">        try &#123;</div><div class="line">            fis = new FileInputStream(path);</div><div class="line">            ByteArrayOutputStream bos = new ByteArrayOutputStream();</div><div class="line">            int len = 0;</div><div class="line">            byte[] buffer = new byte[1024];</div><div class="line">            while ((len = fis.read(buffer)) != -1) &#123;</div><div class="line">                bos.write(buffer, 0, len);</div><div class="line">            &#125;</div><div class="line">            bos.flush();</div><div class="line">            return bos.toByteArray();</div><div class="line">        &#125; catch (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; finally &#123;</div><div class="line">            if (fis != null) &#123;</div><div class="line">                try &#123;</div><div class="line">                    fis.close();</div><div class="line">                &#125; catch (IOException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private String pathForClassName(String className) &#123;</div><div class="line">        return rootDir + File.separatorChar</div><div class="line">                + className.replace(&apos;.&apos;, File.separatorChar) + &quot;.class&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在 D盘根目录创建 <code>HelloWorld.java</code> 代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package com.classloader.test;</div><div class="line"></div><div class="line">public class HelloWorld &#123;</div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		System.out.println(&quot;xxx&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>编译生成 class 文件</p>
+<ul>
+<li>测试主类<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">package com.classloader.test;</div><div class="line"></div><div class="line">public class FileClassLoaderTest &#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        FileSystemClassLoader loader = new FileSystemClassLoader(&quot;D:/&quot;);</div><div class="line">        FileSystemClassLoader loader2 = new FileSystemClassLoader(&quot;D:/&quot;);</div><div class="line">        try &#123;</div><div class="line">            Class&lt;?&gt; c1 = loader.loadClass(&quot;com.classloader.test.HelloWorld&quot;);</div><div class="line">            Class&lt;?&gt; c2 = loader.loadClass(&quot;com.classloader.test.HelloWorld&quot;);</div><div class="line">            Class&lt;?&gt; c3 = loader2.loadClass(&quot;com.classloader.test.HelloWorld&quot;);</div><div class="line"></div><div class="line">            System.out.println(c1.hashCode());</div><div class="line">            System.out.println(c2.hashCode());</div><div class="line">            System.out.println(c3.hashCode());</div><div class="line">        &#125; catch (ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">21685669</div><div class="line">21685669</div><div class="line">2133927002</div></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看出 c1 跟 c2 的 hashCode 一致，说明是同一个对象，而 c3 不同，这就印证了我们上面所说的：被两个类加载器加载的同一个类，JVM不认为是相同的类</p>
+</blockquote>
+
       
     </div>
     
@@ -396,13 +334,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/09/10/Hexo-常用命令收集整理/">Hexo 常用命令收集整理</a></p>
+        <p><span>本文标题:</span><a href="/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/">深入 JVM 类加载器之自定义文件类加载器</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Loofer</a></p>
-        <p><span>发布时间:</span>2017-09-10, 17:41:40</p>
-        <p><span>最后更新:</span>2017-09-10, 18:13:45</p>
+        <p><span>发布时间:</span>2018-04-21, 23:12:51</p>
+        <p><span>最后更新:</span>2018-04-21, 23:13:29</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/09/10/Hexo-常用命令收集整理/" title="Hexo 常用命令收集整理">https://loofer.github.io/2017/09/10/Hexo-常用命令收集整理/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2017/09/10/Hexo-常用命令收集整理/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/" title="深入 JVM 类加载器之自定义文件类加载器">https://loofer.github.io/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2018/04/21/深入-JVM-类加载器之自定义文件类加载器/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -414,16 +352,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/">
-                    Spring Boot常用配置（properties、yml）
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/07/27/中文技术文档的写作规范/">
-                    
+                <a href="/2018/04/21/深入-JVM-类加载器之类加载器层次结构/">
+                    深入 JVM 类加载器之类加载器层次结构
                 </a>
             </div>
         
@@ -435,7 +367,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#hexo"><span class="toc-number">1.</span> <span class="toc-text">hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简写"><span class="toc-number">1.1.</span> <span class="toc-text">简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器"><span class="toc-number">1.2.</span> <span class="toc-text">服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监视文件变动"><span class="toc-number">1.3.</span> <span class="toc-text">监视文件变动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完成后部署"><span class="toc-number">1.4.</span> <span class="toc-text">完成后部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#草稿"><span class="toc-number">1.5.</span> <span class="toc-text">草稿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模版"><span class="toc-number">1.6.</span> <span class="toc-text">模版</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模版（Scaffold）"><span class="toc-number">1.7.</span> <span class="toc-text">模版（Scaffold）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置文章摘要"><span class="toc-number">1.8.</span> <span class="toc-text">设置文章摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写作"><span class="toc-number">1.9.</span> <span class="toc-text">写作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#推送到服务器上"><span class="toc-number">1.10.</span> <span class="toc-text">推送到服务器上</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义类加载器流程"><span class="toc-number">1.</span> <span class="toc-text">自定义类加载器流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试代码"><span class="toc-number">2.</span> <span class="toc-text">测试代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输出"><span class="toc-number">2.1.</span> <span class="toc-text">输出</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -471,7 +403,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Hexo 常用命令收集整理　| 枫暮草堂　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"深入 JVM 类加载器之自定义文件类加载器　| 枫暮草堂　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -491,15 +423,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/09/10/Spring-Boot常用配置（properties、yml）/" title="上一篇: Spring Boot常用配置（properties、yml）">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/07/27/中文技术文档的写作规范/" title="下一篇: ">
+            <a href="/2018/04/21/深入-JVM-类加载器之类加载器层次结构/" title="下一篇: 深入 JVM 类加载器之类加载器层次结构">
                 <i class="fa fa-angle-right"></i>
             </a>
         
