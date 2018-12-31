@@ -15,14 +15,20 @@
 
 
 
+<meta name="description" content="一、引言又到一年结尾了，又到复盘这一年的经历了。 没有记录没有反思没有复盘，来年又会重复掉进坑里。在即将过去了 2018 年有太多太多做的不好的地方，希望来年不再重蹈覆辙。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="源码解析之Android系统进程Zygote启动流程">
-<meta property="og:url" content="https://loofer.github.io/2017/07/27/源码解析之Android系统进程Zygote启动流程/index.html">
+<meta property="og:title" content="2018年终总结">
+<meta property="og:url" content="https://loofer.github.io/2018/12/31/2018年终总结/index.html">
 <meta property="og:site_name" content="枫暮草堂">
+<meta property="og:description" content="一、引言又到一年结尾了，又到复盘这一年的经历了。 没有记录没有反思没有复盘，来年又会重复掉进坑里。在即将过去了 2018 年有太多太多做的不好的地方，希望来年不再重蹈覆辙。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-27T13:49:45.700Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/63252-669a16605e3379f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/63252-9da9e2574cb9989a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-31T15:13:42.206Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="源码解析之Android系统进程Zygote启动流程">
+<meta name="twitter:title" content="2018年终总结">
+<meta name="twitter:description" content="一、引言又到一年结尾了，又到复盘这一年的经历了。 没有记录没有反思没有复盘，来年又会重复掉进坑里。在即将过去了 2018 年有太多太多做的不好的地方，希望来年不再重蹈覆辙。">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/63252-669a16605e3379f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -54,7 +60,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>源码解析之Android系统进程Zygote启动流程 | 枫暮草堂</title>
+<title>2018年终总结 | 枫暮草堂</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -260,11 +266,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-源码解析之Android系统进程Zygote启动流程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-2018年终总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/" class="article-date">
-      <time datetime="2017-07-27T13:49:45.000Z" itemprop="datePublished">2017-07-27</time>
+      <a href="/2018/12/31/2018年终总结/" class="article-date">
+      <time datetime="2018-12-31T15:12:58.000Z" itemprop="datePublished">2018-12-31</time>
 </a>
 
 
@@ -279,7 +285,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      源码解析之Android系统进程Zygote启动流程
+      2018年终总结
     </h1>
   
 
@@ -296,7 +302,102 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>又到一年结尾了，又到复盘这一年的经历了。</p>
+<p>没有记录没有反思没有复盘，来年又会重复掉进坑里。在即将过去了 2018 年有太多太多做的不好的地方，希望来年不再重蹈覆辙。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/63252-669a16605e3379f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<a id="more"></a>
+<h2 id="二、往年目标"><a href="#二、往年目标" class="headerlink" title="二、往年目标"></a>二、往年目标</h2><p>先把去年年终总结的目标过一下。</p>
+<blockquote>
+<ul>
+<li>做事要有更多的勇气胆识。转变思维，懂得牺牲小的成就大的。</li>
+</ul>
+</blockquote>
+<p>总结：这一点相比 2017 年好很多很多，从独自一人闯房市到换了一家公司后敢于在不同场合提出自身的见解有很大的进步。最后小点做的还不够好。</p>
+<p>评分：7 分</p>
+<blockquote>
+<ul>
+<li>逐渐用 Google 代替国内搜索引擎。熟练阅读英文文档。</li>
+</ul>
+</blockquote>
+<p>总结：从写爬虫爬找免费定时的 SSR 账号到找免费的站点到搭建 heroku Proxy，这一年基本 80% 的时候都是 Google 了。包括时常到 YouTube 上找有趣精进的视频。</p>
+<p>评分：8 分</p>
+<blockquote>
+<p>*回归前面几年的前沿意识。不断突破自身，不在旧的知识上停留。多去接触意识思维前沿的人。提炼自己需要的知识。</p>
+</blockquote>
+<p>总结：这一点从换工作那里体现的很明显，基本很少受人影响。知道自己需要什么，大概知道自己的路该往哪走。对于接触前沿思维与人，这块做的一般般。《暗时间》这本书没看完，这点是败笔。</p>
+<p>评分：7 分</p>
+<blockquote>
+<ul>
+<li>要有被动收入，开始实现财务自由。</li>
+</ul>
+</blockquote>
+<p>总结：这点基本没做到，从 1 月入币圈，到 5 月赚了 2000 没有及时退出到贯穿整年的基金亏损。原本打算的开始业余做尝试可能能赚钱的项目。因为种种原因没有动手。  评分：5 分</p>
+<blockquote>
+<ul>
+<li>结交各种需要的人士，以备不时只需。</li>
+</ul>
+</blockquote>
+<p>总结：这点也算败笔，原因也很多不细说。</p>
+<p>评分：5 分</p>
+<h2 id="三、八大领域目标及完成事项"><a href="#三、八大领域目标及完成事项" class="headerlink" title="三、八大领域目标及完成事项"></a>三、八大领域目标及完成事项</h2><h3 id="（一）职业发展"><a href="#（一）职业发展" class="headerlink" title="（一）职业发展"></a>（一）职业发展</h3><p>1、换了家公司，回到 Java 后端这条路上来。换的公司并不如意。薪资也不如意。</p>
+<p>2、从上家公司最后成为领导最信任的人主导版本开发负责人到换了家公司当了一次 master。</p>
+<p>3、整年过程中有 4 次外包机会，音乐 app、商城 app、电视购物（后端）、视频类 app ，种种原因没有做成一次。</p>
+<p>4、新公司树立的形象越来越好，被信任程度越来越高。与同事相处融洽度越来越高。</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：6 分</p>
+<h3 id="（二）财务"><a href="#（二）财务" class="headerlink" title="（二）财务"></a>（二）财务</h3><p>1、相比 2017 年虽然中间在上家公司中间有过涨薪，但换工作过程中中间耽误两个月，到换工作试用期被打八折。薪资可谓原地踏步。</p>
+<p>2、1月初进入币圈，佛系买虚拟货币，中间有收益。目前亏损严重。</p>
+<p>3、理财知识学习，看完了《资本的故事》。买了一些基金 1 月初有收益，目前亏损状态。</p>
+<p>4、房子没有买成，P2P 暴雷幸运的是很早转移了投资，投资的平台也未爆出风险。目前没有继续在 P2P 上有投入。</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：6 分</p>
+<h4 id="（三）朋友和重要的他人"><a href="#（三）朋友和重要的他人" class="headerlink" title="（三）朋友和重要的他人"></a>（三）朋友和重要的他人</h4><p>1、和前公司几个玩的好的同事时常有过交流。</p>
+<p>2、大学同学来往少了不少，固定几个住附近的来往频率差不多。</p>
+<p>3、亲临大一室友的婚礼。</p>
+<p>4、认识几个相对靠谱的新同事，并得到一些信任。</p>
+<p>5、和同学参加了 Spring Cloud 线下沙龙、华为敏捷开发之道等一些线下分享会</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：7 分</p>
+<h4 id="（四）家庭"><a href="#（四）家庭" class="headerlink" title="（四）家庭"></a>（四）家庭</h4><p>1、回家两次，因为买房的事情，深圳 &lt;–&gt; 长沙 两地来回的次数很多，花费巨额车费最后房子没买成。</p>
+<p>2、爸妈过生日打过几次电话，平时很少打电话沟通。</p>
+<p>3、两次回去都没怎么到奶奶家去，听说爷爷耳朵有点听不清了。</p>
+<p>4、由于姐的原因以及一些家里历史遗留原因整个家闹过几次大矛盾。身在异地有些猝不及防。</p>
+<p>5、5 月外甥出世，很可爱。上个月腾讯搞活动拿了个企鹅娃娃，第一时间给外甥寄过去了。</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：5 分</p>
+<h4 id="（五）健康"><a href="#（五）健康" class="headerlink" title="（五）健康"></a>（五）健康</h4><p>1、上半年没换工作的时候经常会去锻炼，晨跑、游泳、乒乓球、羽毛球。下半年由于换了份工作，非常忙基本没时间锻炼。</p>
+<p>2、上半年作息时间相对比较规律，早睡早起。周末基本自己做饭。自从换了份工作加班严重，回的晚也睡的晚。加上时不时周末因为工作的是耽误做饭的次数也减少不少。来年这份工作必换。</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：7 分</p>
+<h4 id="（六）个人成长"><a href="#（六）个人成长" class="headerlink" title="（六）个人成长"></a>（六）个人成长</h4><p>1、为回到后端这条路上，换工作这段时间补充了不少知识。学习完全是不自信驱动自身学习。</p>
+<p>2、看完了《谈判》、《暗时间》（部分）、《好好说话》（部分）、《软技能，代码外的生存之道》、《亿级流量架构网站核心技术》（部分）、《资本的故事》（视频）《区块链》（部分）</p>
+<p>3、画图意识增强，思维导图、流程图、时序图。有一定的熟练程度。</p>
+<p>4、整年都在转变思维，不再为某个公司目标某个人为目标学习知识。</p>
+<p>5、努力在往商人转变，喜怒很少表现在脸上，面对各种事情大多数时候做到了沉着冷静。思考问题能站在不同的角度去思考了。</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：8 分</p>
+<h4 id="（七）休闲娱乐"><a href="#（七）休闲娱乐" class="headerlink" title="（七）休闲娱乐"></a>（七）休闲娱乐</h4><p>1、爬山，梅林山、塘朗山、南山、凤凰山、梧桐山重新爬了一次，除去梅林山以前没去过加上没有爬羊台山，16 年的爬过的山基本重新爬了一遍。</p>
+<p>2、上半年时常去财富港吹风，碧海湾公园，西湾红树林周边。</p>
+<p>3、锦绣中华、福永立新湖、蛇口海上世界、深圳人才公园、欢乐谷</p>
+<p>4、世界杯买了三场球，总共赚了 15 块</p>
+<p>5、原本计划南澳、杨梅坑、大小梅沙自驾游没有实现</p>
+<p><strong>反思总结</strong></p>
+<p>满意度：8 分</p>
+<h4 id="（八）自我实现"><a href="#（八）自我实现" class="headerlink" title="（八）自我实现"></a>（八）自我实现</h4><p>1、1 月底正式立项自己的一个视频 app，第一次站在产品的角度开发一款产品。版本迭代到 1.1.4 因为种种原因项目搁浅，原本的设想打水漂。</p>
+<p>2、和广州一个大学同学联系上，想法碰到一块。都有相同的兴趣和创业打算，寻找门路，从业余做点东西开始。</p>
+<h2 id="四、来年目标打算"><a href="#四、来年目标打算" class="headerlink" title="四、来年目标打算"></a>四、来年目标打算</h2><blockquote>
+<p>1、思想更上一层楼，找到自己未来 3 年的方向。做好计划规划。</p>
+<p>2、学习一些管理方面的知识。</p>
+<p>2、人际交往更进一步，重心放在未来事业上，暂时放弃找对象。不排斥有合适的。</p>
+<p>3、思维做事方式再上一个台阶，完善个人技能知识体系。思想更加独立，不受外在因素干扰，求证意识更加深刻。</p>
+<p>4、继续寻找财富自由的方法，初步有自己的项目。并且有能赚钱的趋势。</p>
+<p>5、勤加练习克服自身恐惧，把过去做的不好的地方补充好。寻找自己没有但未来必须具备的的技能，并掌握。</p>
+<p>6、加强跟家人的沟通，争取把房子的事情定下来。</p>
+<p>7、英语能力有更大提升。</p>
+<p>8、锻炼与健康实现与工作平衡。</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/63252-9da9e2574cb9989a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
       
     </div>
     
@@ -304,13 +405,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/">源码解析之Android系统进程Zygote启动流程</a></p>
+        <p><span>本文标题:</span><a href="/2018/12/31/2018年终总结/">2018年终总结</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Loofer</a></p>
-        <p><span>发布时间:</span>2017-07-27, 21:49:45</p>
-        <p><span>最后更新:</span>2017-07-27, 21:49:45</p>
+        <p><span>发布时间:</span>2018-12-31, 23:12:58</p>
+        <p><span>最后更新:</span>2018-12-31, 23:13:42</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/27/源码解析之Android系统进程Zygote启动流程/" title="源码解析之Android系统进程Zygote启动流程">https://loofer.github.io/2017/07/27/源码解析之Android系统进程Zygote启动流程/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2017/07/27/源码解析之Android系统进程Zygote启动流程/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/12/31/2018年终总结/" title="2018年终总结">https://loofer.github.io/2018/12/31/2018年终总结/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://loofer.github.io/2018/12/31/2018年终总结/　　作者: Loofer" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -322,12 +423,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/07/27/中文技术文档的写作规范/">
-                    
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/07/15/C-指针理解/">
+                    C 指针理解
                 </a>
             </div>
-        
         
     </nav>
 
@@ -337,7 +438,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、引言"><span class="toc-number">1.</span> <span class="toc-text">一、引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、往年目标"><span class="toc-number">2.</span> <span class="toc-text">二、往年目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、八大领域目标及完成事项"><span class="toc-number">3.</span> <span class="toc-text">三、八大领域目标及完成事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（一）职业发展"><span class="toc-number">3.1.</span> <span class="toc-text">（一）职业发展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（二）财务"><span class="toc-number">3.2.</span> <span class="toc-text">（二）财务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（三）朋友和重要的他人"><span class="toc-number">3.2.1.</span> <span class="toc-text">（三）朋友和重要的他人</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（四）家庭"><span class="toc-number">3.2.2.</span> <span class="toc-text">（四）家庭</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（五）健康"><span class="toc-number">3.2.3.</span> <span class="toc-text">（五）健康</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（六）个人成长"><span class="toc-number">3.2.4.</span> <span class="toc-text">（六）个人成长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（七）休闲娱乐"><span class="toc-number">3.2.5.</span> <span class="toc-text">（七）休闲娱乐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（八）自我实现"><span class="toc-number">3.2.6.</span> <span class="toc-text">（八）自我实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、来年目标打算"><span class="toc-number">4.</span> <span class="toc-text">四、来年目标打算</span></a></li></ol>
         
     </div>
     <style>
@@ -373,7 +474,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"源码解析之Android系统进程Zygote启动流程　| 枫暮草堂　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"2018年终总结　| 枫暮草堂　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -393,15 +494,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/07/27/中文技术文档的写作规范/" title="上一篇: ">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2018/07/15/C-指针理解/" title="下一篇: C 指针理解">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
